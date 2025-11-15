@@ -1,13 +1,21 @@
 import streamlit as st
 import pandas as pd
 import random
+import logging
 
-answer_key = pd.read_csv("fixtures/answer_key.csv", index_col="Question", dtype={"Answer": float})
-with open("fixtures/success_images.txt") as f:
+from pathlib import Path
+logger = st.logger.get_logger(__name__)
+logger.setLevel(logging.INFO)
+logger.info('Streamlit app started')
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+
+answer_key = pd.read_csv(f"{SCRIPT_DIR}/fixtures/answer_key.csv", index_col="Question", dtype={"Answer": float})
+with open(f"{SCRIPT_DIR}/fixtures/success_images.txt") as f:
     success_images = f.read().splitlines()
 
 st.title("Composite shapes")
-with open("fixtures/directions.md") as f:
+with open(f"{SCRIPT_DIR}/fixtures/directions.md") as f:
     directions = f.read()
 st.markdown(directions)
 st.latex(r"\pi \approx 3.14")
