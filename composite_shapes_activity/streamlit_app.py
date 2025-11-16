@@ -37,10 +37,10 @@ except ValueError:
 
 if st.button("Check answer"):
     correct_answer = answer_key.loc[selected_question]["Answer"]
-    if abs(submitted_answer - correct_answer) < 0.1:
+    if abs(submitted_answer - correct_answer) < 0.05:
         random.seed(selected_question)
         gif_url = random.choice(success_images)
         st.image(gif_url)
-        st.success("Correct!  Ask Mr. Jacobs or Mrs. Finan for another card.")
+        st.success("Correct!  Swap roles and ask Mr. Jacobs or Mrs. Finan for another card.")
     else:
         st.error(f"Sorry, try again")
