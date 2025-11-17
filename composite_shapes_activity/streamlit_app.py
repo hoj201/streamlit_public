@@ -32,7 +32,7 @@ selected_question = st.text_input("Question", value="", max_chars=1, key="questi
 if selected_question not in answer_key.index.get_level_values("Question"):
     st.error("Please enter a valid question. Available questions are: " + ", ".join(answer_key.index.get_level_values("Question")))
 
-submitted_answer = st.text_input("Your answer", value="", key="answer_input")
+submitted_answer = st.text_input("Your answer", value="0", key="answer_input")
 
 try:
     submitted_answer = float(submitted_answer)
@@ -47,8 +47,10 @@ if st.button("Check answer"):
         st.image(gif_url)
         st.text("Correct!  Swap roles and ask Mr. Jacobs or Mrs. Finan for another card.")
         st.session_state[team_name].add(selected_question)
+    elif abs(submitted_answer - correct_answer) < 0.2:
+        st.text(f"Almost! {submitted_answer} is very close. Make sure you rounded correctly and try again.")
     else:
-        st.text(f"Sorry, try again")
+        st.text(f"Sorry, {submitted_answer} is not correct. try again")
 
 st.header("Team Score")
 if team_name in st.session_state:
